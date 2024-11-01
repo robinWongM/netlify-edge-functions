@@ -1,7 +1,8 @@
 import type { Context, Config } from "@netlify/edge-functions";
 
 export default async (request: Request, context: Context) => {
-  return new Response(`Hello from ${context.server.region}!`, {
+  const a = await Deno.resolveDns("example.com", "A");
+  return new Response(`Hello from ${context.server.region}: ${a}!`, {
     headers: {
       'x-probe-region': context.server.region,
     },
